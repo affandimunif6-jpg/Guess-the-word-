@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tebak Angka</title>
+    <style>
+        /* CSS: Untuk mengatur tampilan/desain game agar rapi di HP */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f2f5;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 50px auto;
+        }
+        h1 { color: #333; }
+        input[type="number"] {
+            padding: 10px;
+            width: 85%;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #0056b3; }
+        #pesan {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tebak Angka!</h1>
+        <p>Aku memikirkan angka antara <b>1 sampai 100</b>. Coba tebak!</p>
+        
+        <input type="number" id="inputTebakan" placeholder="Masukkan angka..." min="1" max="100">
+        <br>
+        <button onclick="cekTebakan()">Tebak!</button>
+        
+        <p id="pesan"></p>
+    </div>
+
+    <script>
+        // JAVASCRIPT: Logika dan cara kerja game
+        // Sistem memilih angka acak antara 1 - 100
+        const angkaRahasia = Math.floor(Math.random() * 100) + 1;
+        let jumlahTebakan = 0;
+
+        function cekTebakan() {
+            // Mengambil angka yang diinput oleh pemain
+            const tebakanPemain = parseInt(document.getElementById("inputTebakan").value);
+            const pesan = document.getElementById("pesan");
+            
+            jumlahTebakan++; // Menambah hitungan percobaan
+
+            if (isNaN(tebakanPemain) || tebakanPemain < 1 || tebakanPemain > 100) {
+                pesan.innerHTML = "❌ Masukkan angka yang valid antara 1 - 100!";
+                pesan.style.color = "red";
+            } else if (tebakanPemain === angkaRahasia) {
+                pesan.innerHTML = `🎉 Selamat! Tebakanmu BENAR (${angkaRahasia}). <br>Kamu berhasil dalam ${jumlahTebakan} kali percobaan!`;
+                pesan.style.color = "green";
+            } else if (tebakanPemain < angkaRahasia) {
+                pesan.innerHTML = "📉 Terlalu RENDAH! Coba angka yang lebih besar.";
+                pesan.style.color = "blue";
+            } else {
+                pesan.innerHTML = "📈 Terlalu TINGGI! Coba angka yang lebih kecil.";
+                pesan.style.color = "orange";
+            }
+        }
+    </script>
+
+</body>
+</html>
